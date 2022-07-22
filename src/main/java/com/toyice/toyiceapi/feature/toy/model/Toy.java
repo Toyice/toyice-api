@@ -51,6 +51,9 @@ public class Toy {
   @OneToMany(mappedBy = "toy", cascade = CascadeType.ALL)
   private List<UserVoice> userVoiceList;
 
+  @OneToMany(mappedBy = "toy", cascade = CascadeType.ALL)
+  private List<Review> reviewList;
+
   public static String getMainImageDefaultPath() {
     return "toy-default-main.jpeg";
   }

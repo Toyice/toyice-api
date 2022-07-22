@@ -1,11 +1,15 @@
 package com.toyice.toyiceapi.feature.toy.service;
 
+import com.toyice.toyiceapi.feature.toy.dto.ReviewRequest;
+import com.toyice.toyiceapi.feature.toy.dto.ReviewResponse;
 import com.toyice.toyiceapi.feature.toy.dto.ToyRequest;
 import com.toyice.toyiceapi.feature.toy.dto.ToyResponse;
 import com.toyice.toyiceapi.feature.toy.dto.UserVoiceRequest;
+import com.toyice.toyiceapi.feature.toy.model.Review;
 import com.toyice.toyiceapi.feature.toy.model.Tag;
 import com.toyice.toyiceapi.feature.toy.model.Toy;
 import com.toyice.toyiceapi.feature.toy.model.UserVoice;
+import com.toyice.toyiceapi.feature.toy.repository.ReviewRepository;
 import com.toyice.toyiceapi.feature.toy.repository.ToyRepository;
 import com.toyice.toyiceapi.feature.toy.repository.UserVoiceRepository;
 import com.toyice.toyiceapi.utils.ImageUtils;
@@ -27,6 +31,8 @@ public class ToyService {
   private final ToyRepository toyRepository;
 
   private final UserVoiceRepository userVoiceRepository;
+
+  private final ReviewRepository reviewRepository;
 
   public ToyResponse.Get get(Long toyId) {
     Toy toy = toyRepository.findById(toyId).get();
@@ -92,6 +98,22 @@ public class ToyService {
 
   public void delete(Long toyId) {
     toyRepository.deleteById(toyId);
+  }
+
+  public ReviewResponse.Get saveReview(ReviewRequest.Save request){
+    Toy toy = toyRepository.findById(request.getToyId()).get();
+    Review review = reviewRepository.save(request.toEntity(toy));
+    return ReviewResponse.Get.of(review);
+  }
+
+  public ReviewResponse.Get updateReview(Long reviewId, ReviewRequest.Update request){
+    Review review = reviewRepository.findById(reviewId).get();
+    review.setContent(review.getContent());
+    return ReviewResponse.Get.of(review);
+  }
+
+  public void deleteReview(Long reviewId){
+    reviewRepository.deleteById(reviewId);
   }
 
 

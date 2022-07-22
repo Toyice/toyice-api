@@ -18,16 +18,17 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserVoice {
+public class Review {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   @Column(nullable = false)
-  private String question;
+  private String content;
 
   @ManyToOne(targetEntity = Toy.class, fetch = FetchType.LAZY)
   @JoinColumn(name = "toy_id", nullable = false)
   private Toy toy;
+
 }

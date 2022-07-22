@@ -1,5 +1,7 @@
 package com.toyice.toyiceapi.feature.toy.controller;
 
+import com.toyice.toyiceapi.feature.toy.dto.ReviewRequest;
+import com.toyice.toyiceapi.feature.toy.dto.ReviewResponse;
 import com.toyice.toyiceapi.feature.toy.dto.ToyRequest;
 import com.toyice.toyiceapi.feature.toy.dto.ToyResponse;
 import com.toyice.toyiceapi.feature.toy.service.ToyService;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
@@ -34,7 +37,7 @@ public class ToyController {
 
   @ApiOperation(value = "토이 목록 조회")
   @GetMapping("/list")
-  public List<ToyResponse.GetList> getList(@RequestParam(required = false) String tag){
+  public List<ToyResponse.GetList> getList(@RequestParam(required = false) String tag) {
     return toyService.getList(tag);
   }
 
@@ -59,6 +62,24 @@ public class ToyController {
   @DeleteMapping("/{toyId}")
   public void delete(@PathVariable Long toyId) {
     toyService.delete(toyId);
+  }
+
+  @ApiOperation(value = "리뷰 생성")
+  @PostMapping("/review")
+  public ReviewResponse.Get saveReview(@RequestBody ReviewRequest.Save request) {
+    return toyService.saveReview(request);
+  }
+
+  @ApiOperation(value = "리뷰 수정")
+  @PutMapping("/review/{reviewId}")
+  public ReviewResponse.Get saveReview(@PathVariable Long reviewId, @RequestBody ReviewRequest.Update request) {
+    return toyService.updateReview(reviewId, request);
+  }
+
+  @ApiOperation(value = "리뷰 삭제")
+  @DeleteMapping("/review/{reviewId}")
+  public void saveReview(@PathVariable Long reviewId) {
+    toyService.deleteReview(reviewId);
   }
 
 
