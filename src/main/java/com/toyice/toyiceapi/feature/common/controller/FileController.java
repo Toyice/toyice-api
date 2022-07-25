@@ -20,7 +20,7 @@ public class FileController {
   @SneakyThrows
   @GetMapping(
       value = "/images/{path}",
-      produces = {MediaType.IMAGE_JPEG_VALUE}
+      produces = {MediaType.IMAGE_PNG_VALUE}
   )
   public ResponseEntity getImage(@PathVariable String path) {
     InputStream in = new FileInputStream(ImageUtils.getImageDir(path));

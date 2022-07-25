@@ -1,10 +1,10 @@
 package com.toyice.toyiceapi.feature.toy.dto;
 
-import com.toyice.toyiceapi.feature.toy.dto.ToyResponse.Get;
+import com.toyice.toyiceapi.feature.toy.model.Tag;
 import com.toyice.toyiceapi.feature.toy.model.Toy;
-import com.toyice.toyiceapi.feature.toy.model.UserVoice;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -41,11 +41,14 @@ public class ToyResponse {
     @ApiModelProperty(value = "좋아요")
     private Integer likes;
 
-    @ApiModelProperty(value = "태그")
-    private String tag;
+    @ApiModelProperty(value = "유형")
+    private String type;
 
-    @ApiModelProperty(value = "유저보이스")
-    private List<UserVoiceResponse.GetList> userVoiceList;
+    @ApiModelProperty(value = "태그")
+    private List<String> tagList;
+
+    @ApiModelProperty(value = "리뷰")
+    private List<ReviewResponse.GetList> reviewList;
 
     public static Get of(Toy toy) {
       return Get.builder()
@@ -55,25 +58,12 @@ public class ToyResponse {
           .notionUrl(toy.getNotionUrl())
           .mainImage(toy.getMainImageUrl())
           .views(toy.getViews())
-          .likes(toy.getLikes())
-          .tag(toy.getTag().getValue())
-          .userVoiceList(UserVoiceResponse.GetList.of(toy.getUserVoiceList()))
+          .likes(toy.getNumOfLike())
+          .type(toy.getType().getValue())
+          .tagList(toy.getTagStringList())
+          .reviewList(ReviewResponse.GetList.of(toy.getReviewList()))
           .build();
     }
-    public static Get of(Toy toy, List<UserVoice> userVoiceList) {
-      return Get.builder()
-          .id(toy.getId())
-          .title(toy.getTitle())
-          .description(toy.getDescription())
-          .notionUrl(toy.getNotionUrl())
-          .mainImage(toy.getMainImageUrl())
-          .views(toy.getViews())
-          .likes(toy.getLikes())
-          .tag(toy.getTag().getValue())
-          .userVoiceList(UserVoiceResponse.GetList.of(userVoiceList))
-          .build();
-    }
-
 
   }
 
@@ -102,8 +92,11 @@ public class ToyResponse {
     @ApiModelProperty(value = "좋아요")
     private Integer likes;
 
+    @ApiModelProperty(value = "유형")
+    private String type;
+
     @ApiModelProperty(value = "태그")
-    private String tag;
+    private List<String> tagList;
 
     public static GetList of(Toy toy) {
       return GetList.builder()
@@ -112,8 +105,9 @@ public class ToyResponse {
           .description(toy.getDescription())
           .mainImage(toy.getMainImageUrl())
           .views(toy.getViews())
-          .likes(toy.getLikes())
-          .tag(toy.getTag().getValue())
+          .likes(toy.getNumOfLike())
+          .type(toy.getType().getValue())
+          .tagList(toy.getTagStringList())
           .build();
     }
 

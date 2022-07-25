@@ -25,10 +25,14 @@ public class ReviewResponse {
     @ApiModelProperty(value = "내용")
     private String content;
 
+    @ApiModelProperty(value = "토이 식별번호")
+    private Long toyId;
+
     public static Get of(Review review) {
       return Get.builder()
           .id(review.getId())
           .content(review.getContent())
+          .toyId(review.getToy().getId())
           .build();
     }
 
@@ -56,7 +60,7 @@ public class ReviewResponse {
     }
 
     public static List<GetList> of(List<Review> reviewList) {
-      if (reviewList == null) {
+      if (reviewList == null || reviewList.size() == 0) {
         return null;
       }
       return reviewList.stream().map(GetList::of).collect(Collectors.toList());
