@@ -1,6 +1,6 @@
 package com.toyice.toyiceapi.feature.toy.dto;
 
-import com.toyice.toyiceapi.feature.toy.model.Tag;
+import com.toyice.toyiceapi.feature.toy.model.Type;
 import com.toyice.toyiceapi.feature.toy.model.Toy;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -28,11 +28,11 @@ public class ToyRequest {
     @ApiModelProperty(value = "노션 url", required = true)
     private String notionUrl;
 
-    @ApiModelProperty(value = "태그", required = true)
-    private String tag;
+    @ApiModelProperty(value = "유형", required = true)
+    private String type;
 
-    @ApiModelProperty(value = "유저보이스")
-    private List<UserVoiceRequest.Save> userVoiceList;
+    @ApiModelProperty(value = "태그")
+    private List<String> tagList;
 
     public Toy toEntity() {
       return Toy.builder()
@@ -40,8 +40,7 @@ public class ToyRequest {
           .description(this.description)
           .notionUrl(this.notionUrl)
           .mainImage(Toy.getMainImageDefaultPath())
-          .tag(Tag.findByValue(tag))
-          .likes(0)
+          .type(Type.findByValue(type))
           .views(0)
           .build();
     }
@@ -65,12 +64,11 @@ public class ToyRequest {
     @ApiModelProperty(value = "노션 url", required = true)
     private String notionUrl;
 
-    @ApiModelProperty(value = "태그", required = true)
-    private String tag;
+    @ApiModelProperty(value = "유형", required = true)
+    private String type;
 
-    @ApiModelProperty(value = "유저보이스")
-    private List<UserVoiceRequest.Save> userVoiceList;
-
+    @ApiModelProperty(value = "태그")
+    private List<String> tagList;
 
   }
 

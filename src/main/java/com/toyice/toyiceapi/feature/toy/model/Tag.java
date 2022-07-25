@@ -1,28 +1,34 @@
 package com.toyice.toyiceapi.feature.toy.model;
 
-import java.util.Arrays;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-public enum Tag {
-  RED("아이디어"),
-  YELLOW("시각화"),
-  BLUE("서비스 개발");
+@Entity
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class Tag {
 
-  private final String value;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-  Tag(String value) {
-    this.value = value;
-  }
+  @Column(nullable = false)
+  private String value;
 
-  public String getValue() {
-    return this.value;
-  }
-
-  public static Tag findByValue(String value) {
-    return Arrays.stream(Tag.values())
-        .filter(tag -> tag.getValue().equals(value))
-        .findAny()
-        .orElse(null);
-  }
-
+  @ManyToOne(targetEntity = Toy.class, fetch = FetchType.LAZY)
+  @JoinColumn(name = "toy_id", nullable = false)
+  private Toy toy;
 
 }

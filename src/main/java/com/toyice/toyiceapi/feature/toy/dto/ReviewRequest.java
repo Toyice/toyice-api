@@ -1,5 +1,4 @@
 package com.toyice.toyiceapi.feature.toy.dto;
-
 import com.toyice.toyiceapi.feature.toy.model.Review;
 import com.toyice.toyiceapi.feature.toy.model.Toy;
 import io.swagger.annotations.ApiModel;
@@ -24,9 +23,6 @@ public class ReviewRequest {
     @ApiModelProperty(value = "토이 식별번호", required = true)
     private Long toyId;
 
-    @ApiModelProperty(value = "작성자")
-    private String user;
-
     public Review toEntity(Toy toy) {
       return Review.builder()
           .content(this.content)
@@ -36,16 +32,5 @@ public class ReviewRequest {
 
   }
 
-  @ApiModel("ReviewRequest.Update")
-  @Data
-  @Builder
-  @AllArgsConstructor
-  @NoArgsConstructor
-  public static class Update {
-
-    @ApiModelProperty(value = "내용", required = true)
-    private String content;
-
-  }
 
 }
