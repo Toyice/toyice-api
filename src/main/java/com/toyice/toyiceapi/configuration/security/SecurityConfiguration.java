@@ -1,4 +1,4 @@
-package com.toyice.toyiceapi.configuration;
+package com.toyice.toyiceapi.configuration.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,6 +11,7 @@ public class SecurityConfiguration {
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
     http
+        .csrf().disable()
         .authorizeHttpRequests()
         .antMatchers("/**").permitAll();
     return http.build();
