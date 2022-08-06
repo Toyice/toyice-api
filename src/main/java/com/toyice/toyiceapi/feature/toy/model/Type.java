@@ -4,8 +4,8 @@ import java.util.Arrays;
 
 public enum Type {
   IDEA("아이디어"),
-  VISUALIZE("시각화"),
-  SERVICE("서비스 개발");
+  DESIGN("디자인"),
+  SERVICE_DEVELOP("서비스 개발");
 
   private final String value;
 
