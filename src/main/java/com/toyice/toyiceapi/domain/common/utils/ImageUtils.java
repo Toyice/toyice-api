@@ -1,7 +1,11 @@
-package com.toyice.toyiceapi.utils;
+package com.toyice.toyiceapi.domain.common.utils;
 
+import java.io.File;
+import java.io.IOException;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
 @Component
 public class ImageUtils {
@@ -37,6 +41,11 @@ public class ImageUtils {
 
   public static String getImageUrl(String path) {
     return "http://" + HOST + ":" + PORT + "/uploads/images/" + path;
+  }
+
+  public static void saveImage(MultipartFile image, String fileName) throws IOException {
+    File file = new File(ImageUtils.getImageDir(fileName));
+    image.transferTo(file);
   }
 
 }

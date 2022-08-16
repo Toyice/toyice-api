@@ -1,6 +1,5 @@
-package com.toyice.toyiceapi.feature.toy.model;
+package com.toyice.toyiceapi.domain.toy.model;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -11,21 +10,19 @@ import javax.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Data
+@Getter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Tag {
+public class ToyLike {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-
-  @Column(nullable = false)
-  private String value;
 
   @ManyToOne(targetEntity = Toy.class, fetch = FetchType.LAZY)
   @JoinColumn(name = "toy_id", nullable = false)

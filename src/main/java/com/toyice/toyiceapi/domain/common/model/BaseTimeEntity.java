@@ -1,4 +1,4 @@
-package com.toyice.toyiceapi.feature.common.model;
+package com.toyice.toyiceapi.domain.common.model;
 
 import java.time.LocalDateTime;
 import javax.persistence.EntityListeners;

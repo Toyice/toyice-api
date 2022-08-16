@@ -1,6 +1,6 @@
-package com.toyice.toyiceapi.feature.common.controller;
+package com.toyice.toyiceapi.domain.common.controller;
 
-import com.toyice.toyiceapi.utils.ImageUtils;
+import com.toyice.toyiceapi.domain.common.utils.ImageUtils;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import lombok.SneakyThrows;
