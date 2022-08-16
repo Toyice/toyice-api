@@ -1,7 +1,7 @@
-package com.toyice.toyiceapi.feature.toy.dto;
+package com.toyice.toyiceapi.domain.toy.dto;
 
-import com.toyice.toyiceapi.feature.toy.model.Type;
-import com.toyice.toyiceapi.feature.toy.model.Toy;
+import com.toyice.toyiceapi.domain.toy.model.Type;
+import com.toyice.toyiceapi.domain.toy.model.Toy;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
@@ -39,9 +39,7 @@ public class ToyRequest {
           .title(this.title)
           .description(this.description)
           .notionUrl(this.notionUrl)
-          .mainImage(Toy.getMainImageDefaultPath())
-          .type(Type.findByValue(type))
-          .views(0)
+          .type(Type.findByValue(this.type))
           .build();
     }
 

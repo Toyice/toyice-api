@@ -1,10 +1,8 @@
-package com.toyice.toyiceapi.feature.toy.dto;
+package com.toyice.toyiceapi.domain.toy.dto;
 
-import com.toyice.toyiceapi.feature.toy.model.Tag;
-import com.toyice.toyiceapi.feature.toy.model.Toy;
+import com.toyice.toyiceapi.domain.toy.model.Toy;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.ArrayList;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -47,9 +45,6 @@ public class ToyResponse {
     @ApiModelProperty(value = "태그")
     private List<String> tagList;
 
-    @ApiModelProperty(value = "리뷰")
-    private List<ReviewResponse.GetList> reviewList;
-
     public static Get of(Toy toy) {
       return Get.builder()
           .id(toy.getId())
@@ -61,7 +56,6 @@ public class ToyResponse {
           .likes(toy.getNumOfLike())
           .type(toy.getType().getValue())
           .tagList(toy.getTagStringList())
-          .reviewList(ReviewResponse.GetList.of(toy.getReviewList()))
           .build();
     }
 
@@ -111,6 +105,43 @@ public class ToyResponse {
           .build();
     }
 
+
+  }
+
+
+  @ApiModel("ToyResponse.Save")
+  @Data
+  @Builder
+  @AllArgsConstructor
+  @NoArgsConstructor
+  public static class Save {
+
+    @ApiModelProperty(value = "식별번호")
+    private Long id;
+
+    public static Save of(Toy toy) {
+      return Save.builder()
+          .id(toy.getId())
+          .build();
+    }
+
+  }
+
+  @ApiModel("ToyResponse.Update")
+  @Data
+  @Builder
+  @AllArgsConstructor
+  @NoArgsConstructor
+  public static class Update {
+
+    @ApiModelProperty(value = "식별번호")
+    private Long id;
+
+    public static Update of(Toy toy) {
+      return Update.builder()
+          .id(toy.getId())
+          .build();
+    }
 
   }
 

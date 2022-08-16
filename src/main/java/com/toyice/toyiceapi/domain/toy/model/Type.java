@@ -1,5 +1,6 @@
-package com.toyice.toyiceapi.feature.toy.model;
+package com.toyice.toyiceapi.domain.toy.model;
 
+import com.toyice.toyiceapi.domain.common.advice.exception.TypeValueNotValidException;
 import java.util.Arrays;
 
 public enum Type {
@@ -18,10 +19,15 @@ public enum Type {
   }
 
   public static Type findByValue(String value) {
-    return Arrays.stream(Type.values())
-        .filter(type -> type.getValue().equals(value))
+    Type type = Arrays.stream(Type.values())
+        .filter(t -> t.getValue().equals(value))
         .findAny()
         .orElse(null);
+
+    if(type == null){
+      throw new TypeValueNotValidException(value);
+    }
+    return type;
   }
 
 
