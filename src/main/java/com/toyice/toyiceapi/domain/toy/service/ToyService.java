@@ -2,7 +2,6 @@ package com.toyice.toyiceapi.domain.toy.service;
 
 import com.toyice.toyiceapi.domain.toy.dto.ToyRequest;
 import com.toyice.toyiceapi.domain.toy.dto.ToyResponse;
-import com.toyice.toyiceapi.domain.toy.model.Tag;
 import com.toyice.toyiceapi.domain.toy.model.ToyLike;
 import com.toyice.toyiceapi.domain.toy.model.Type;
 import com.toyice.toyiceapi.domain.toy.model.Toy;
@@ -10,7 +9,6 @@ import com.toyice.toyiceapi.domain.toy.repository.TagRepository;
 import com.toyice.toyiceapi.domain.toy.repository.ToyRepository;
 import com.toyice.toyiceapi.domain.common.utils.ImageUtils;
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -34,31 +32,30 @@ public class ToyService {
   public ToyResponse.Get get(Long toyId) {
     Toy toy = toyRepository.findById(toyId).get();
     toy.updateViews();
-    return ToyResponse.Get.of(toy);
+    return new ToyResponse.Get(toy);
   }
 
   @Transactional(readOnly = true)
   public List<ToyResponse.GetList> getList(String projectType) {
     if (StringUtils.hasText(projectType)) {
       return toyRepository.findByTypeOrderByCreatedDateDesc(Type.findByValue(projectType)).stream()
-          .map(ToyResponse.GetList::of)
+          .map(ToyResponse.GetList::new)
           .collect(Collectors.toList());
     } else {
       return toyRepository.findAll(Sort.by(Direction.DESC, "createdDate")).stream()
-          .map(ToyResponse.GetList::of)
+          .map(ToyResponse.GetList::new)
           .collect(Collectors.toList());
     }
   }
 
   @SneakyThrows
   public ToyResponse.Save save(ToyRequest.Save request, MultipartFile image) {
-
     Toy toy = toyRepository.save(request.toEntity());
     File file = new File(ImageUtils.getImageDir(toy.getMainImage()));
     image.transferTo(file);
-    toy.saveTagList(request.getTagList());
+    toy.updateTagList(request.getTagList());
 
-    return ToyResponse.Save.of(toy);
+    return new ToyResponse.Save(toy);
   }
 
   @SneakyThrows
@@ -70,7 +67,7 @@ public class ToyService {
     File file = new File(ImageUtils.getImageDir(toy.getMainImage()));
     image.transferTo(file);
 
-    return ToyResponse.Update.of(toy);
+    return new ToyResponse.Update(toy);
   }
 
   public void delete(Long toyId) {
@@ -85,6 +82,6 @@ public class ToyService {
         .build();
     List<ToyLike> toyLikeList = toy.getToyLikeList();
     toyLikeList.add(toyLike);
-    return ToyResponse.Update.of(toy);
+    return new ToyResponse.Update(toy);
   }
 }

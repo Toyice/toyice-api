@@ -66,41 +66,6 @@ public class Toy extends BaseTimeEntity {
     this.mainImage = "toy-" + this.id + "-main.png";
   }
 
-  public void update(ToyRequest.Update request) {
-    this.title = request.getTitle();
-    this.description = request.getDescription();
-    this.type = Type.findByValue(request.getType());
-    this.notionUrl = request.getNotionUrl();
-
-    List<Tag> tagList = null;
-    if (request.getTagList() != null) {
-      tagList = new ArrayList<>();
-      for (String value : request.getTagList()) {
-        tagList.add(Tag.builder()
-            .toy(this)
-            .value(value)
-            .build());
-      }
-    }
-    this.tagList = tagList;
-
-  }
-
-
-  public void saveTagList(List<String> tagStringList) {
-    List<Tag> tagList = null;
-    if (tagStringList != null) {
-      tagList = new ArrayList<>();
-      for (String value : tagStringList) {
-        tagList.add(Tag.builder()
-            .toy(this)
-            .value(value)
-            .build());
-      }
-    }
-    this.tagList = tagList;
-  }
-
   public int getNumOfLike() {
     if (this.toyLikeList == null) {
       return 0;
@@ -122,6 +87,28 @@ public class Toy extends BaseTimeEntity {
 
   public String getMainImageUrl() {
     return ImageUtils.getImageUrl(this.mainImage);
+  }
+
+  public void update(ToyRequest.Update request) {
+    this.title = request.getTitle();
+    this.description = request.getDescription();
+    this.type = Type.findByValue(request.getType());
+    this.notionUrl = request.getNotionUrl();
+    this.updateTagList(request.getTagList());
+  }
+
+  public void updateTagList(List<String> tagStringList) {
+    List<Tag> tagList = null;
+    if (tagStringList != null) {
+      tagList = new ArrayList<>();
+      for (String value : tagStringList) {
+        tagList.add(Tag.builder()
+            .toy(this)
+            .value(value)
+            .build());
+      }
+    }
+    this.tagList = tagList;
   }
 
   public void updateViews() {

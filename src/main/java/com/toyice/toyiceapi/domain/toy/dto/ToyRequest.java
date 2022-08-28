@@ -2,8 +2,7 @@ package com.toyice.toyiceapi.domain.toy.dto;
 
 import com.toyice.toyiceapi.domain.toy.model.Type;
 import com.toyice.toyiceapi.domain.toy.model.Toy;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,26 +11,26 @@ import lombok.NoArgsConstructor;
 
 public class ToyRequest {
 
-  @ApiModel("ToyResponse.Save")
+  @Schema(name = "ToyRequest.Save")
   @Data
   @Builder
   @AllArgsConstructor
   @NoArgsConstructor
   public static class Save {
 
-    @ApiModelProperty(value = "제목", required = true)
+    @Schema(description = "제목", required = true)
     private String title;
 
-    @ApiModelProperty(value = "한 줄 요약", required = true)
+    @Schema(description = "한 줄 요약", required = true)
     private String description;
 
-    @ApiModelProperty(value = "노션 url", required = true)
+    @Schema(description = "노션 url", required = true)
     private String notionUrl;
 
-    @ApiModelProperty(value = "유형", required = true)
+    @Schema(description = "유형", required = true)
     private String type;
 
-    @ApiModelProperty(value = "태그")
+    @Schema(description = "태그")
     private List<String> tagList;
 
     public Toy toEntity() {
@@ -45,27 +44,26 @@ public class ToyRequest {
 
 
   }
-
-  @ApiModel("ToyResponse.Update")
+  @Schema(name = "ToyRequest.Update")
   @Data
   @Builder
   @AllArgsConstructor
   @NoArgsConstructor
   public static class Update {
 
-    @ApiModelProperty(value = "제목", required = true)
+    @Schema(description = "제목", required = true)
     private String title;
 
-    @ApiModelProperty(value = "한 줄 요약", required = true)
+    @Schema(description = "한 줄 요약", required = true)
     private String description;
 
-    @ApiModelProperty(value = "노션 url", required = true)
+    @Schema(description = "노션 url", required = true)
     private String notionUrl;
 
-    @ApiModelProperty(value = "유형", required = true)
+    @Schema(description = "유형", required = true)
     private String type;
 
-    @ApiModelProperty(value = "태그")
+    @Schema(description = "태그")
     private List<String> tagList;
 
   }
